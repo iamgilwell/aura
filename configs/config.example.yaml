@@ -1,0 +1,60 @@
+# Aura - AI-Powered Process Optimizer Configuration
+
+anthropic:
+  # API key (can also be set via ANTHROPIC_API_KEY env var)
+  api_key: ""
+  model: "claude-sonnet-4-5-20250929"
+
+monitoring:
+  scan_interval: "2s"
+  cpu_threshold: 80.0
+  memory_threshold: 80.0
+  io_threshold: 104857600  # 100MB/s
+  history_size: 100
+
+ai:
+  enabled: true
+  confidence_threshold: 0.7
+  cache_size: 500
+  cache_ttl: "30m"
+  max_requests_per_min: 30
+  # 1 (conservative) - 10 (aggressive)
+  aggressiveness: 5
+
+safety:
+  # 0: fully automatic, 1: notify for system, 2: confirm all, 3: monitor only
+  consent_level: 2
+  protected_processes:
+    - systemd
+    - init
+    - sshd
+    - dbus-daemon
+    - NetworkManager
+    - pulseaudio
+    - pipewire
+    - Xorg
+    - Xwayland
+    - gnome-shell
+    - kwin
+    - sway
+    - gdm
+    - lightdm
+    - login
+  never_terminate:
+    - systemd
+    - init
+    - kernel
+    - kthreadd
+  terminate_timeout: "5s"
+
+notifications:
+  log_file: "aura.log"
+  audit_file: "aura-audit.log"
+  verbose: false
+  color_enabled: true
+
+power:
+  cpu_watt_per_percent: 0.5
+  memory_watt_per_mb: 0.001
+  disk_watt_per_mbps: 0.02
+  track_savings: true
